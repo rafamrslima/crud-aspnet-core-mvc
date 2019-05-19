@@ -1,0 +1,66 @@
+﻿@model crud_aspnetcore_mvc.ViewModels.UserViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Users</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
+</p>
+
+@if (Model.ShowMessage)
+{
+<div class="alert alert-@Model.StyleMessage mt-2" role="alert" id="divMessage">
+    @Model.TextMessage
+</div>
+}
+ 
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th> # </th>
+                <th> Name </th>
+                <th> Email </th>
+                <th> Actions </th>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.Users)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+else
+{
+    <h3>No items available.</h3>
+}
+
+<script>
+    let messageSuccess = document.querySelector('#divMessage')
+    if (messageSuccess != null) {
+        setTimeout(() => messageSuccess.style.display = "none", 3000);
+    }
+</script>
+
