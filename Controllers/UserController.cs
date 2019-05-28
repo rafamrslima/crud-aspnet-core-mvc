@@ -63,7 +63,12 @@ namespace crud_aspnetcore_mvc.Controllers
         public ViewResult Edit(int id)
         {
             User user = _userService.GetUserById(id);
-            return View("Create", user);
+
+            UserViewModel userViewModel = new UserViewModel();
+            userViewModel.User = _userService.GetUserById(id);
+            userViewModel.TextMessage = "Update";
+ 
+            return View("Create", userViewModel);
         }
 
         public async Task<ActionResult> Delete(int id)
